@@ -263,41 +263,115 @@ main{
 
 
 
-.page-footer{
+.page-footer {
+    display: flex;
+    justify-content: center;
+    padding: 100px 20px 60px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-container {
+    max-width: 1200px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 80px 0 40px 0;
-    gap: 30px;
+    gap: 40px;
+
+    background: rgba(18, 4, 31, 0.45);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(189, 0, 255, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+
+    border-radius: 40px;
+    padding: 40px;
 }
 
-.contact-title{
-    font-size: 26px;
-    font-weight: 400;
+.contact-title {
+    font-size: 28px;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.5px;
+    position: relative;
 }
 
-.contact-list{
+.contact-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #c084fc;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.contact-list {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-list li {
+    flex: 1;
+    min-width: 160px;
 }
 
 .contact-link {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    font-size: 20px;
-    font-weight: 300;
-    color: white;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(168, 85, 247, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
-    transition: color 0.2s ease, transform 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.contact-link i {
-    font-size: 24px;
-    transition: color 0.2s ease;
+.contact-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+
+    transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
 }
 
 .contact-link:hover {
     color: #c084fc;
-    transform: translateY(-2px);
+    background: rgba(189, 0, 255, 0.12);
+    border-color: rgba(189, 0, 255, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(189, 0, 255, 0.25);
+}
+
+.contact-link:hover .contact-logo {
+    opacity: 1;
+    transform: scale(1.1);
+
+    filter: invert(64%) sepia(55%) saturate(1750%) hue-rotate(220deg) brightness(102%) contrast(99%);
+}
+
+
+
+@media (max-width: 768px) {
+    .contact-list {
+        justify-content: center;
+    }
+
+    .footer-container {
+        padding: 30px 20px;
+    }
 }
