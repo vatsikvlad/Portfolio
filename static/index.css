@@ -24,13 +24,39 @@ body{
     color: white;
 
     background-color: #0b0214;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
     background-image:
         radial-gradient(circle at 80% 20%, #7000ff 0%, transparent 45%),
-        radial-gradient(circle at 15% 60%, #b000ff 0%, transparent 40%),
         radial-gradient(circle at 75% 90%, #ff00b7 0%, transparent 35%);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
+    z-index: -1;
+    pointer-events: none;
+    animation: pulseAndMoveFirst 15s ease-in-out infinite alternate;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    content: '';
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-image:
+        radial-gradient(circle at 15% 60%, #b000ff 0%, transparent 40%);
+    z-index: -1;
+    pointer-events: none;
+    animation: pulseAndMoveSecond 18s ease-in-out infinite alternate;
 }
 
 .container {
@@ -71,13 +97,16 @@ header{
     text-decoration: none;
     cursor: pointer;
 
-    transition: color 0.2s ease, font-weight 0.2s ease;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .navbar-list li a:hover {
-    font-weight: 700;
     color: #c084fc;
-    text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+    text-shadow:
+        0.5px 0 0 #c084fc,
+        -0.5px 0 0 #c084fc,
+        0 0 1px #c084fc,
+        0 0 10px rgba(192, 132, 252, 0.5);
 }
 
 
@@ -90,7 +119,7 @@ main{
     background: rgba(18, 4, 31, 0.45);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(189, 0, 255, 0.35);
+    border: 1px solid rgba(189, 0, 255, 0.1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
@@ -137,7 +166,7 @@ main{
     background: rgba(18, 4, 31, 0.45);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(189, 0, 255, 0.35);
+    border: 1px solid rgba(189, 0, 255, 0.1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
@@ -177,7 +206,7 @@ main{
     background: rgba(18, 4, 31, 0.45);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(189, 0, 255, 0.35);
+    border: 1px solid rgba(189, 0, 255, 0.1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
@@ -202,10 +231,10 @@ main{
     width: 150px;
     height: 150px;
 
-    background: linear-gradient(135deg, rgba(88, 28, 135, 0.75), rgba(49, 46, 129, 0.75));
+    background: linear-gradient(135deg, rgba(76, 24, 116, 0.5), rgba(42, 40, 110, 0.5));
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(168, 85, 247, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.1);
 
     border-radius: 50%;
 
@@ -249,7 +278,7 @@ main{
     background: rgba(18, 4, 31, 0.45);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(189, 0, 255, 0.35);
+    border: 1px solid rgba(189, 0, 255, 0.1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
@@ -281,7 +310,7 @@ main{
     background: rgba(18, 4, 31, 0.45);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(189, 0, 255, 0.35);
+    border: 1px solid rgba(189, 0, 255, 0.1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
@@ -362,6 +391,42 @@ main{
     transform: scale(1.1);
 
     filter: invert(64%) sepia(55%) saturate(1750%) hue-rotate(220deg) brightness(102%) contrast(99%);
+}
+
+
+
+@keyframes pulseAndMoveFirst {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.95) translate(0px, 0px);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.02) translate(15px, -20px);
+    }
+
+    100% {
+        opacity: 0.85;
+        transform: scale(1.08) translate(-10px, 15px);
+    }
+}
+
+@keyframes pulseAndMoveSecond {
+    0% {
+        opacity: 0.8;
+        transform: scale(1.08) translate(0px, 0px);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.95) translate(-25px, 10px);
+    }
+
+    100% {
+        opacity: 0.15;
+        transform: scale(1.02) translate(20px, -15px);
+    }
 }
 
 
