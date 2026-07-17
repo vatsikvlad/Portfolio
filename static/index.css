@@ -9,6 +9,7 @@
 html{
     height: 100%;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body{
@@ -70,12 +71,59 @@ body::after {
 
 
 
-header{
+header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 80px;
+
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    padding: 30px 80px;
+
+    background-color: rgba(18, 4, 31, 0);
+    border: 1px solid transparent;
+    border-radius: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0);
+
+    transition:
+        top 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        width 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        max-width 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        padding 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        background-color 0.5s ease,
+        border-radius 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        border-color 0.5s ease,
+        box-shadow 0.5s ease,
+        backdrop-filter 0.5s ease,
+        -webkit-backdrop-filter 0.5s ease;
+
+    z-index: 100;
+}
+header.sticky {
+    top: 20px;
+
+    width: 90%;
+    max-width: 1200px;
+    padding: 15px 40px;
+
+    background-color: rgba(18, 4, 31, 0.6);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.hero-section,
+main {
+    padding-top: 120px;
 }
 
 .logo {
@@ -128,6 +176,23 @@ main{
     justify-content: space-between;
     align-items: flex-start;
     min-height: 480px;
+
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+        backdrop-filter 0.8s ease,
+        -webkit-backdrop-filter 0.8s ease;
+}
+.about-card.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
 }
 
 .about-title {
@@ -393,7 +458,17 @@ main{
     filter: invert(64%) sepia(55%) saturate(1750%) hue-rotate(220deg) brightness(102%) contrast(99%);
 }
 
+@keyframes slideInDown {
+    from {
+        top: -70px;
+        opacity: 0;
+    }
 
+    to {
+        top: 20px;
+        opacity: 1;
+    }
+}
 
 @keyframes pulseAndMoveFirst {
     0% {

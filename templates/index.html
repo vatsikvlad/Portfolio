@@ -162,5 +162,45 @@
         </footer>
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const aboutCard = document.querySelector('.about-card');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Колі картка з'явилася в полі зору — вмикаємо анімацію
+                    aboutCard.classList.add('show');
+                } else {
+                    // Коли скролимо далі або назад і вона зникає — скидаємо анімацію
+                    aboutCard.classList.remove('show');
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        observer.observe(aboutCard);
+    });
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+            const header = document.querySelector('header');
+
+            // Визначаємо точку, після якої навбар трансформується (наприклад, після 100px скролу)
+            const scrollThreshold = 100;
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > scrollThreshold) {
+                    // Якщо проскролили вниз — перетворюємо на плаваючу панель
+                    header.classList.add('sticky');
+                } else {
+                    // Якщо повернулися на самий верх — повертаємо початковий вигляд
+                    header.classList.remove('sticky');
+                }
+            });
+        });
+</script>
+
 
 </html>
