@@ -15,6 +15,7 @@ body{
     display: flex;
     justify-content: center;
     height: 100%;
+    min-height: 100vh;
 
     font-family: "Comfortaa", sans-serif;
     font-optical-sizing: auto;
@@ -22,10 +23,14 @@ body{
     font-style: normal;
     color: white;
 
-    background-color: #180122;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath d='M0 0 L14 8.08 L28 0 M14 8.08 L14 24.24 M0 32.32 L14 24.24 L28 32.32 M14 24.24 L14 40.4 M0 49 L14 40.4 L28 49' fill='none' stroke='%232c043d' stroke-width='1'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 28px 49px;
+    background-color: #0b0214;
+    background-image:
+        radial-gradient(circle at 80% 20%, #7000ff 0%, transparent 45%),
+        radial-gradient(circle at 15% 60%, #b000ff 0%, transparent 40%),
+        radial-gradient(circle at 75% 90%, #ff00b7 0%, transparent 35%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .container {
@@ -71,7 +76,8 @@ header{
 
 .navbar-list li a:hover {
     font-weight: 700;
-    color: #8500BF;
+    color: #c084fc;
+    /* text-shadow: 0 0 10px rgba(192, 132, 252, 0.3); */
 }
 
 
@@ -81,11 +87,11 @@ main{
 }
 
 .about-card {
-    /* background-color: #250334; */
-    background: rgba(37, 3, 52, 0.55);
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(18, 4, 31, 0.45);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(189, 0, 255, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
     padding: 20px 30px;
@@ -102,7 +108,11 @@ main{
 }
 
 .photo-placeholder {
-    background-color: #D9D9D9;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+
     width: 200px;
     height: 300px;
     border-radius: 40px;
@@ -124,10 +134,11 @@ main{
     flex-direction: column;
     flex: 1;
 
-    background: rgba(37, 3, 52, 0.55);
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(18, 4, 31, 0.45);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(189, 0, 255, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
     padding: 20px 30px;
@@ -163,10 +174,11 @@ main{
 .techstack-placeholder {
     position: relative;
 
-    background: rgba(37, 3, 52, 0.55);
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(18, 4, 31, 0.45);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(189, 0, 255, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
     padding: 20px 30px;
@@ -190,23 +202,33 @@ main{
     width: 150px;
     height: 150px;
 
-    background: rgba(61, 7, 84, 0.55);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, rgba(88, 28, 135, 0.75), rgba(49, 46, 129, 0.75));
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+
     border-radius: 50%;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
     text-align: center;
-    padding: 15px;
+    padding: 25px;
     font-size: 18px;
     font-weight: 300;
     color: white;
 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     z-index: 2;
+}
+
+.tech-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 
@@ -221,11 +243,12 @@ main{
 
 .projects-placeholder {
     position: relative;
-    
-    background: rgba(37, 3, 52, 0.55);
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(18, 4, 31, 0.45);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(189, 0, 255, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 
     border-radius: 40px;
     padding: 30px 30px;
@@ -254,4 +277,25 @@ main{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 300;
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-link i {
+    font-size: 24px;
+    transition: color 0.2s ease;
+}
+
+.contact-link:hover {
+    color: #c084fc;
+    transform: translateY(-2px);
 }
