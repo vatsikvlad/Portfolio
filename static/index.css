@@ -77,7 +77,7 @@ header{
 .navbar-list li a:hover {
     font-weight: 700;
     color: #c084fc;
-    /* text-shadow: 0 0 10px rgba(192, 132, 252, 0.3); */
+    text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
 }
 
 
