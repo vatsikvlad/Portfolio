@@ -200,6 +200,70 @@
                 }
             });
         });
+
+    // Знаходимо секцію з картками освіти
+        const educationSection = document.querySelector('.education');
+
+        const eduObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Додаємо клас батьківському контейнеру, і картки "вистрілюють" по черзі
+                    educationSection.classList.add('show');
+                } else {
+                    // Коли скролимо назад або далі — скидаємо анімацію
+                    educationSection.classList.remove('show');
+                }
+            });
+        }, {
+            threshold: 0.15 /* Анімація почнеться, коли 15% секції покажеться на екрані */
+        });
+
+        // Запускаємо спостереження
+        eduObserver.observe(educationSection);
+
+        // Знаходимо секцію техстеку
+            const techstackSection = document.querySelector('.techstack');
+
+            const techObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Вмикаємо каскадну появу
+                        techstackSection.classList.add('show');
+                    } else {
+                        // Скидаємо анімацію при виході з кадру
+                        techstackSection.classList.remove('show');
+                    }
+                });
+            }, {
+                threshold: 0.1 /* Починає грати, як тільки перші картки сітки перетинають екран */
+            });
+
+            // Запускаємо стеження
+            techObserver.observe(techstackSection);
+
+            const projectsSection = document.querySelector('.projects');
+                const projectsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            projectsSection.classList.add('show');
+                        } else {
+                            projectsSection.classList.remove('show');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                projectsObserver.observe(projectsSection);
+
+            const footerSection = document.querySelector('.page-footer');
+                const footerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            footerSection.classList.add('show');
+                        } else {
+                            footerSection.classList.remove('show');
+                        }
+                    });
+                }, { threshold: 0.15 }); // Трохи вищий поріг, щоб футер з'являвся впевнено
+                footerObserver.observe(footerSection);
 </script>
 
 
