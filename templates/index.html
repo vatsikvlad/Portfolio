@@ -164,27 +164,6 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const aboutCard = document.querySelector('.about-card');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Колі картка з'явилася в полі зору — вмикаємо анімацію
-                    aboutCard.classList.add('show');
-                } else {
-                    // Коли скролимо далі або назад і вона зникає — скидаємо анімацію
-                    aboutCard.classList.remove('show');
-                }
-            });
-        }, {
-            threshold: 0.15
-        });
-
-        observer.observe(aboutCard);
-    });
-
-
-    document.addEventListener("DOMContentLoaded", () => {
             const header = document.querySelector('header');
 
             // Визначаємо точку, після якої навбар трансформується (наприклад, після 100px скролу)
@@ -200,70 +179,82 @@
                 }
             });
         });
+    document.addEventListener("DOMContentLoaded", () => {
+            // Змінна для відстеження напрямку скролу
+            let lastScrollY = window.scrollY;
+            let isScrollingUp = false;
 
-    // Знаходимо секцію з картками освіти
-        const educationSection = document.querySelector('.education');
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
 
-        const eduObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Додаємо клас батьківському контейнеру, і картки "вистрілюють" по черзі
-                    educationSection.classList.add('show');
-                } else {
-                    // Коли скролимо назад або далі — скидаємо анімацію
-                    educationSection.classList.remove('show');
-                }
+                // Визначаємо напрямок: якщо поточний скрол менший за попередній — скролимо ВГОРУ
+                isScrollingUp = currentScrollY < lastScrollY;
+
+                lastScrollY = currentScrollY;
             });
-        }, {
-            threshold: 0.15 /* Анімація почнеться, коли 15% секції покажеться на екрані */
-        });
 
-        // Запускаємо спостереження
-        eduObserver.observe(educationSection);
+            // Налаштування центрального обсервера
+            const centerObserverOptions = {
+                root: null,
+                rootMargin: "-25% 0px -25% 0px",
+                threshold: 0
+            };
 
-        // Знаходимо секцію техстеку
-            const techstackSection = document.querySelector('.techstack');
-
-            const techObserver = new IntersectionObserver((entries) => {
+            const scrollObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Вмикаємо каскадну появу
-                        techstackSection.classList.add('show');
+                        // Якщо заходимо в секцію знизу вверх, додаємо клас динамічного реверсу
+                        if (isScrollingUp) {
+                            entry.target.classList.add('scroll-up');
+                        } else {
+                            entry.target.classList.remove('scroll-up');
+                        }
+
+                        entry.target.classList.add('show');
                     } else {
-                        // Скидаємо анімацію при виході з кадру
-                        techstackSection.classList.remove('show');
+                        // Миттєвий ресет при виході з екрана
+                        entry.target.classList.remove('show');
+                        entry.target.classList.remove('scroll-up');
                     }
                 });
-            }, {
-                threshold: 0.1 /* Починає грати, як тільки перші картки сітки перетинають екран */
+            }, centerObserverOptions);
+
+            // Зв'язуємо секції
+            const sectionsToAnimate = [
+                document.querySelector('.about-card'),
+                document.querySelector('.education'),
+                document.querySelector('.techstack'),
+                document.querySelector('.projects'),
+                document.querySelector('.page-footer')
+            ];
+
+            sectionsToAnimate.forEach(section => {
+                if (section) scrollObserver.observe(section);
             });
+        });
 
-            // Запускаємо стеження
-            techObserver.observe(techstackSection);
+        document.addEventListener("DOMContentLoaded", () => {
+                // Знаходимо всі посилання в нашому навбарі, які ведуть на секції (мають href^="#")
+                const navLinks = document.querySelectorAll('.navbar-list li a[href^="#"]');
 
-            const projectsSection = document.querySelector('.projects');
-                const projectsObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            projectsSection.classList.add('show');
-                        } else {
-                            projectsSection.classList.remove('show');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault(); // Скасовуємо стандартний різкий перехід браузера
+
+                        // Отримуємо id секції, на яку клікнули (наприклад, "#education")
+                        const targetId = link.getAttribute('href');
+                        const targetSection = document.querySelector(targetId);
+
+                        if (targetSection) {
+                            // Магія центрування: block: "center" вирівнює елемент строго по центру екрана
+                            targetSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
                         }
                     });
-                }, { threshold: 0.1 });
-                projectsObserver.observe(projectsSection);
-
-            const footerSection = document.querySelector('.page-footer');
-                const footerObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            footerSection.classList.add('show');
-                        } else {
-                            footerSection.classList.remove('show');
-                        }
-                    });
-                }, { threshold: 0.15 }); // Трохи вищий поріг, щоб футер з'являвся впевнено
-                footerObserver.observe(footerSection);
+                });
+            });
 </script>
 
 
