@@ -1,3 +1,39 @@
+header {
+    will-change: transform, top, width;
+}
+
+.about-placeholder,
+.education-placeholder,
+.techstack-placeholder,
+.projects-placeholder,
+.footer-container {
+    will-change: transform, opacity;
+}
+
+header,
+.about-placeholder,
+.education-placeholder,
+.techstack-placeholder,
+.projects-placeholder,
+.footer-container {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+header.sticky {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+.about.show .about-placeholder,
+.education.show .education-placeholder,
+.techstack.show .techstack-placeholder,
+.projects.show .projects-placeholder {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;

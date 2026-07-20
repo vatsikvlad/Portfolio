@@ -171,143 +171,123 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-            const header = document.querySelector('header');
+        const header = document.querySelector('header');
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navbarList = document.querySelector('.navbar-list');
+        const navLinksAll = document.querySelectorAll('.navbar-list li a');
+        const smoothNavLinks = document.querySelectorAll('.navbar-list li a[href^="#"]');
 
-            // Визначаємо точку, після якої навбар трансформується (наприклад, після 100px скролу)
-            const scrollThreshold = 100;
+        const scrollThreshold = 100;
+        let lastScrollY = window.scrollY;
+        let isScrollingUp = false;
+        let ticking = false;
 
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > scrollThreshold) {
-                    // Якщо проскролили вниз — перетворюємо на плаваючу панель
-                    header.classList.add('sticky');
-                } else {
-                    // Якщо повернулися на самий верх — повертаємо початковий вигляд
-                    header.classList.remove('sticky');
-                }
-            });
-        });
-    document.addEventListener("DOMContentLoaded", () => {
-            // Змінна для відстеження напрямку скролу
-            let lastScrollY = window.scrollY;
-            let isScrollingUp = false;
-            const burgerMenu = document.querySelector('.burger-menu');
-            const navbarList = document.querySelector('.navbar-list');
-            const navLinks = document.querySelectorAll('.navbar-list li a');
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const currentScrollY = window.scrollY;
 
-            window.addEventListener('scroll', () => {
-                const currentScrollY = window.scrollY;
-
-                // Визначаємо напрямок: якщо поточний скрол менший за попередній — скролимо ВГОРУ
-                isScrollingUp = currentScrollY < lastScrollY;
-
-                lastScrollY = currentScrollY;
-            });
-
-            // Налаштування центрального обсервера
-            const centerObserverOptions = {
-                root: null,
-                rootMargin: "-25% 0px -25% 0px",
-                threshold: 0
-            };
-
-            const scrollObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Якщо заходимо в секцію знизу вверх, додаємо клас динамічного реверсу
-                        if (isScrollingUp) {
-                            entry.target.classList.add('scroll-up');
-                        } else {
-                            entry.target.classList.remove('scroll-up');
-                        }
-
-                        entry.target.classList.add('show');
+                    if (currentScrollY > scrollThreshold) {
+                        header.classList.add('sticky');
                     } else {
-                        // Миттєвий ресет при виході з екрана
-                        entry.target.classList.remove('show');
+                        header.classList.remove('sticky');
+                    }
+                    isScrollingUp = currentScrollY < lastScrollY;
+                    lastScrollY = currentScrollY;
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        const centerObserverOptions = {
+            root: null,
+            rootMargin: "-25% 0px -25% 0px",
+            threshold: 0
+        };
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (isScrollingUp) {
+                        entry.target.classList.add('scroll-up');
+                    } else {
                         entry.target.classList.remove('scroll-up');
                     }
-                });
-            }, centerObserverOptions);
-
-            // Зв'язуємо секції
-            const sectionsToAnimate = [
-                document.querySelector('.about'),
-                document.querySelector('.education'),
-                document.querySelector('.techstack'),
-                document.querySelector('.projects'),
-                document.querySelector('.page-footer')
-            ];
-
-            sectionsToAnimate.forEach(section => {
-                if (section) scrollObserver.observe(section);
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                    entry.target.classList.remove('scroll-up');
+                }
             });
+        }, centerObserverOptions);
 
+        const sectionsToAnimate = [
+            document.querySelector('.about'),
+            document.querySelector('.education'),
+            document.querySelector('.techstack'),
+            document.querySelector('.projects'),
+            document.querySelector('.page-footer')
+        ];
+
+        sectionsToAnimate.forEach(section => {
+            if (section) scrollObserver.observe(section);
+        });
+
+        const spyObserverOptions = {
+            root: null,
+            rootMargin: "-60% 0px -60% 0px", // Чутлива зона в центрі екрана
+            threshold: 0
+        };
+
+        const spyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.getAttribute('id');
+
+                    navLinksAll.forEach(link => {
+                        const linkHref = link.getAttribute('href').replace('#', '');
+                        if (linkHref === activeId) {
+                            link.classList.add('active-link');
+                        } else {
+                            link.classList.remove('active-link');
+                        }
+                    });
+                }
+            });
+        }, spyObserverOptions);
+
+        const sectionsToSpy = document.querySelectorAll('main section, footer');
+        sectionsToSpy.forEach(section => spyObserver.observe(section));
+
+        if (burgerMenu && navbarList) {
             burgerMenu.addEventListener('click', () => {
                 burgerMenu.classList.toggle('active');
                 navbarList.classList.toggle('active');
             });
+        }
 
-        // Закриття меню при кліку на будь-яке посилання (щоб не перекривало екран після переходу)
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
+        smoothNavLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                if (burgerMenu && navbarList) {
                     burgerMenu.classList.remove('active');
                     navbarList.classList.remove('active');
-                });
+                }
+
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
             });
         });
-
-        document.addEventListener("DOMContentLoaded", () => {
-                const navLinks = document.querySelectorAll('.navbar-list li a[href^="#"]');
-            const navLinksAll = document.querySelectorAll('.navbar-list li a');
-
-            const spyObserverOptions = {
-                root: null,
-                // Налаштування зони перетину в центрі екрана
-                rootMargin: "-60% 0px -60% 0px",
-                threshold: 0
-            };
-
-            const spyObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const activeId = entry.target.getAttribute('id');
-
-                        // Оновлюємо всі посилання в навбарі
-                        navLinksAll.forEach(link => {
-                            const linkHref = link.getAttribute('href').replace('#', '');
-
-                            if (linkHref === activeId) {
-                                link.classList.add('active-link');
-                            } else {
-                                link.classList.remove('active-link');
-                            }
-                        });
-                    }
-                });
-            }, spyObserverOptions);
-
-            // Прив'язуємо всі потрібні секції до ScrollSpy
-            const sectionsToSpy = document.querySelectorAll('main section, footer');
-            sectionsToSpy.forEach(section => spyObserver.observe(section));
-
-                navLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault(); // Скасовуємо стандартний різкий перехід браузера
-
-                        // Отримуємо id секції, на яку клікнули (наприклад, "#education")
-                        const targetId = link.getAttribute('href');
-                        const targetSection = document.querySelector(targetId);
-
-                        if (targetSection) {
-                            // Магія центрування: block: "center" вирівнює елемент строго по центру екрана
-                            targetSection.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }
-                    });
-                });
-            });
+    });
 </script>
 
 
