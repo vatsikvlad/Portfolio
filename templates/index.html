@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename = 'index.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Outfit:wght@100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <title>Vladyslav Vatslavyi</title>
 </head>
 
@@ -17,6 +15,13 @@
     <div class="container">
         <header>
             <div class="logo">Vladyslav Vatslavyi</div>
+
+            <button class="burger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
             <nav>
                 <ul class="navbar-list">
                     <li>
@@ -39,9 +44,11 @@
         </header>
 
         <main>
-            <section id="aboutMe" class="about-card">
-                <p class="about-title">About me section</p>
-                <div class="photo-placeholder"></div>
+            <section id="aboutMe" class="about">
+                <div class="about-placeholder">
+                    <p class="about-title">About me section</p>
+                    <div class="photo-placeholder"></div>
+                </div>
             </section>
 
             <section id="education" class="education">
@@ -183,6 +190,9 @@
             // Змінна для відстеження напрямку скролу
             let lastScrollY = window.scrollY;
             let isScrollingUp = false;
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navbarList = document.querySelector('.navbar-list');
+            const navLinks = document.querySelectorAll('.navbar-list li a');
 
             window.addEventListener('scroll', () => {
                 const currentScrollY = window.scrollY;
@@ -221,7 +231,7 @@
 
             // Зв'язуємо секції
             const sectionsToAnimate = [
-                document.querySelector('.about-card'),
+                document.querySelector('.about'),
                 document.querySelector('.education'),
                 document.querySelector('.techstack'),
                 document.querySelector('.projects'),
@@ -231,11 +241,54 @@
             sectionsToAnimate.forEach(section => {
                 if (section) scrollObserver.observe(section);
             });
+
+            burgerMenu.addEventListener('click', () => {
+                burgerMenu.classList.toggle('active');
+                navbarList.classList.toggle('active');
+            });
+
+        // Закриття меню при кліку на будь-яке посилання (щоб не перекривало екран після переходу)
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    burgerMenu.classList.remove('active');
+                    navbarList.classList.remove('active');
+                });
+            });
         });
 
         document.addEventListener("DOMContentLoaded", () => {
-                // Знаходимо всі посилання в нашому навбарі, які ведуть на секції (мають href^="#")
                 const navLinks = document.querySelectorAll('.navbar-list li a[href^="#"]');
+            const navLinksAll = document.querySelectorAll('.navbar-list li a');
+
+            const spyObserverOptions = {
+                root: null,
+                // Налаштування зони перетину в центрі екрана
+                rootMargin: "-60% 0px -60% 0px",
+                threshold: 0
+            };
+
+            const spyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const activeId = entry.target.getAttribute('id');
+
+                        // Оновлюємо всі посилання в навбарі
+                        navLinksAll.forEach(link => {
+                            const linkHref = link.getAttribute('href').replace('#', '');
+
+                            if (linkHref === activeId) {
+                                link.classList.add('active-link');
+                            } else {
+                                link.classList.remove('active-link');
+                            }
+                        });
+                    }
+                });
+            }, spyObserverOptions);
+
+            // Прив'язуємо всі потрібні секції до ScrollSpy
+            const sectionsToSpy = document.querySelectorAll('main section, footer');
+            sectionsToSpy.forEach(section => spyObserver.observe(section));
 
                 navLinks.forEach(link => {
                     link.addEventListener('click', (e) => {
