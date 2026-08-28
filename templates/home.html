@@ -1,0 +1,172 @@
+{% extends "index.html" %}
+
+{% block body %}
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Vladyslav Vatslavyi</div>
+
+            <button class="burger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav>
+                <ul class="navbar-list">
+                    <li>
+                        <a href="#aboutMe">About Me</a>
+                    </li>
+                    <li>
+                        <a href="#education">Education</a>
+                    </li>
+                    <li>
+                        <a href="#techstack">Techstack</a>
+                    </li>
+                    <li>
+                        <a href="#projects">Projects</a>
+                    </li>
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="aboutMe" class="about">
+                <div class="about-placeholder">
+                    <p class="about-title">Hello, my name is Vlad. I am {{ myBio.age }} years old and I am a software developer.</p>
+                    <div class="photo-placeholder"></div>
+                </div>
+            </section>
+
+            <section id="education" class="education">
+                <div class="education-placeholder">
+                    <h1 class="education-title">School</h1>
+                    <p class="education-text">Education section</p>
+                </div>
+                <div class="education-placeholder">
+                    <h1 class="education-title">Technical School</h1>
+                    <p class="education-text">Education section</p>
+                </div>
+                <div class="education-placeholder">
+                    <h1 class="education-title">University</h1>
+                    <p class="education-text">Education section</p>
+                </div>
+            </section>
+
+            <section id="techstack" class="techstack">
+                <div class="techstack-placeholder">
+                    <h1 class="techstack-title">link to a project</h1>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-plain.svg"
+                            alt="Python">
+                    </div>
+                </div>
+
+                <div class="techstack-placeholder">
+                    <h1 class="techstack-title">link to a project</h1>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" alt="C">
+                    </div>
+                </div>
+
+                <div class="techstack-placeholder">
+                    <h1 class="techstack-title">link to a project</h1>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-plain.svg"
+                            alt="C++">
+                    </div>
+                </div>
+
+                <div class="techstack-placeholder">
+                    <h1 class="techstack-title">link to a project</h1>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-plain.svg"
+                            alt="Java">
+                    </div>
+                </div>
+
+                <div class="techstack-placeholder">
+                    <h1 class="techstack-title">link to a project</h1>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/database.svg"
+                            alt="SQL Database">
+                    </div>
+                </div>
+
+                <div class="techstack-placeholder">
+                    <h1 class="techstack-title">link to a project</h1>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-plain.svg"
+                            alt="HTML">
+                    </div>
+                </div>
+
+                <div class="techstack-placeholder">
+                    <h1 class="techstack-title">link to a project</h1>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-plain.svg"
+                            alt="CSS">
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="projects">
+                <div class="projects-placeholder">
+                    <h1 class="projects-title">link to a project</h1>
+                    <p class="projects-text">Project description</p>
+                </div>
+                <div class="projects-placeholder">
+                    <h1 class="projects-title">link to a project</h1>
+                    <p class="projects-text">Project description</p>
+                </div>
+            </section>
+        </main>
+
+        <footer id="contact" class="page-footer">
+            <div class="footer-container">
+                <div class="contact-title">Contact:</div>
+                <ul class="contact-list">
+                    <li>
+                        <a href="https://github.com" target="_blank" class="contact-link">
+                            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/github.svg" alt="GitHub"
+                                class="contact-logo">
+                            <span>GitHub</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://linkedin.com/in" target="_blank" class="contact-link">
+                            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/linkedin.svg"
+                                alt="LinkedIn" class="contact-logo">
+                            <span>LinkedIn</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://t.me/твій-юзернейм" target="_blank" class="contact-link">
+                            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/telegram.svg"
+                                alt="Telegram" class="contact-logo">
+                            <span>Telegram</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/твій-номер" target="_blank" class="contact-link">
+                            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/whatsapp.svg"
+                                alt="WhatsApp" class="contact-logo">
+                            <span>WhatsApp</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:твій-email@gmail.com" class="contact-link">
+                            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/envelope.svg"
+                                alt="Gmail" class="contact-logo">
+                            <span>Gmail</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</body>
+{% endblock %}
