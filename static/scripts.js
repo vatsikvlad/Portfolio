@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const smoothNavLinks = document.querySelectorAll('.navbar-list li a[href^="#"]');
 
     const scrollThreshold = 100;
+    const mobileViewport = window.matchMedia('(max-width: 992px)');
     let lastScrollY = window.scrollY;
     let isScrollingUp = false;
     let ticking = false;
@@ -24,10 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateScroll = () => {
         const currentScrollY = window.scrollY;
 
-        if (currentScrollY > scrollThreshold) {
-            header.classList.add('sticky');
-        } else {
+        if (mobileViewport.matches) {
             header.classList.remove('sticky');
+        } else {
+            if (currentScrollY > scrollThreshold) {
+                header.classList.add('sticky');
+            } else {
+                header.classList.remove('sticky');
+            }
         }
 
         isScrollingUp = currentScrollY < lastScrollY;
