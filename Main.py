@@ -47,7 +47,11 @@ def Index() -> str:
 def NotFound(e: Exception) -> tuple[str, int]:
     return render_template("notFound.html"), 404
 
-@app.route(f"/<project_name>")
+@app.route("/404.html")
+def NotFoundPage() -> str:
+    return render_template("notFound.html")
+
+@app.route("/<project_name>.html")
 def ProjectPage(project_name: str) -> tuple[str, int] | str:
     project: Project | None = next((p for p in projects if p.title.replace(" ", "").replace("\'", "") == project_name), None)
     if not project:
