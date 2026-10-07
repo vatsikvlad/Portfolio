@@ -1,5 +1,5 @@
 from flask_frozen import Freezer
-from Main import app
+from main import *
 
 app.config['FREEZER_RELATIVE_URLS'] = True
 freezer: Freezer = Freezer(app)

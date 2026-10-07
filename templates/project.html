@@ -1,0 +1,61 @@
+{% extends "index.html" %}
+
+{% block title %}{{ project.title }} | Vladyslav Vatslavyi{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='project.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="project-shell">
+    <header class="project-header">
+        <a class="project-brand" href="{{ url_for('Index') }}">Vladyslav Vatslavyi<span>Software developer</span></a>
+        <a class="project-back" href="{{ url_for('Index') }}#projects"><span aria-hidden="true">&larr;</span> All projects</a>
+    </header>
+    <main class="project-content">
+        <section class="project-hero" aria-labelledby="project-title">
+            <div class="project-intro">
+                <p class="project-eyebrow">Portfolio / Selected project</p>
+                <h1 id="project-title">{{ project.title }}</h1>
+                <p class="project-summary">{{ project.description }}</p>
+                {% if project.link %}
+                <a class="project-github" href="{{ project.link }}" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">&nearr;</span></a>
+                <p class="project-link-note">Explore the code and documentation.</p>
+                {% endif %}
+            </div>
+            <div class="project-preview">
+                <div class="project-preview-bar"><span class="project-window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Project preview</span></div>
+                {% if project.images %}
+                <img class="project-cover" src="{{ project.images[0] }}" alt="{{ project.title }} preview" fetchpriority="high">
+                {% else %}
+                <div class="project-cover-placeholder">
+                    <span class="project-code-symbol" aria-hidden="true">&lt;/&gt;</span>
+                    <span class="project-placeholder-title">{{ project.title }}</span>
+                    <span class="project-placeholder-note">A closer look at the code.</span>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+        {% if project.images %}
+        <section class="project-gallery" aria-labelledby="gallery-title">
+            <div class="project-section-heading"><div><p class="project-eyebrow">Inside the project</p><h2 id="gallery-title">Screenshots</h2></div><span>{{ project.images|length }} images</span></div>
+            <div class="project-gallery-grid">
+                {% for image in project.images %}
+                <figure class="project-shot">
+                    <a href="{{ image }}" target="_blank" rel="noopener noreferrer" aria-label="Open screenshot {{ loop.index }} of {{ project.title }}">
+                        <img src="{{ image }}" alt="{{ project.title }} — screenshot {{ loop.index }}" loading="lazy">
+                    </a>
+                    <figcaption><span>Preview {{ '%02d'|format(loop.index) }}</span><span aria-hidden="true">&nearr;</span></figcaption>
+                </figure>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        <div class="project-bottom-nav">
+            <div><p class="project-eyebrow">Keep exploring</p><h2>More projects, more ideas.</h2></div>
+            <a class="project-back" href="{{ url_for('Index') }}#projects">Back to projects <span aria-hidden="true">&rarr;</span></a>
+        </div>
+    </main>
+    <footer class="project-footer"><span>Vladyslav Vatslavyi</span><span>Built with curiosity. Shared with you.</span></footer>
+</div>
+{% endblock %}
